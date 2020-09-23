@@ -1,0 +1,17 @@
+.message {
+    /* margin: auto; */
+    height: 43px;
+    padding: 10px;
+    border: none;
+    margin-bottom: 5px;
+    background-color: #fff;
+    max-width: 200px;
+    border-radius: 10px;
+    
+}
+
+.messageItem {
+     display: flex; 
+     justify-content: space-between;
+  
+}

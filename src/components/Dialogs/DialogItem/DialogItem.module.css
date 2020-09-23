@@ -1,0 +1,13 @@
+.dialogItem, .active{
+    padding-bottom: 15px;
+    color: #000000;
+}
+
+.avatar {
+    width: 30px;
+}
+
+.active {
+    margin-left: 5px;
+    vertical-align: super;
+}

@@ -1,0 +1,27 @@
+.dialogs {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogText {
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.dialogBtn {
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #5781f5;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.dialogBtn:hover {
+    background-color: #0345fa;
+    cursor: pointer;
+}

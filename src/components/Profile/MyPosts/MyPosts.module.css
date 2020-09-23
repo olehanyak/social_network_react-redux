@@ -1,0 +1,30 @@
+.posts {
+    padding: 10px;
+}
+
+.formBlock {
+    padding-bottom: 10px;
+}
+
+.btn {
+    margin-top: 5px;
+    border: none;
+    color: #fff;
+    background-color: #fa8072;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #d45b4d;
+}
+
+.block {
+    color: red;
+}
+
+.textArea {
+    border: none;
+    border-radius: 5px;
+}

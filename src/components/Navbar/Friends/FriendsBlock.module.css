@@ -1,0 +1,13 @@
+.friendBox {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 40px;
+}
+
+.nameFriend {
+    margin-top: 5px;
+    text-align: center;
+}
