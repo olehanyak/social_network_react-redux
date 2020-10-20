@@ -3,13 +3,13 @@ import styles from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-const Profile = () => {
-    return (
-        <div className={styles.profileArea}>
-            <ProfileInfo /> 
-            <MyPostsContainer />
-        </div>
-    );
+const Profile = (props) => {
+  return (
+    <div className={styles.profileArea}>
+      <ProfileInfo profile={props.profile} />
+      <MyPostsContainer />
+    </div>
+  );
 };
 
 export default Profile;

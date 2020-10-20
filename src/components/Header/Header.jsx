@@ -1,15 +1,14 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 
-const Header = () => {
+const Header = (props) => {
   return (
-    <header className={styles.header}>
+    <header>
       <i className="fab fa-angellist iconFingersVictory"></i>
-      {/* <img
-                className={styles.header__icon}
-                src="https://f0.pngfuel.com/png/497/515/facebook-scalable-graphics-icon-facebook-logo-facebook-logo-png-clip-art.png"
-                alt=""
-            /> */}
+
+      <div className={styles.loginBlock}>
+        {props.isAuth ? props.login : <NavLink to={"/login"}>Login</NavLink>}</div>
     </header>
   );
 };

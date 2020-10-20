@@ -1,28 +1,37 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createNewMessage, updateNewMessage } from "../../redux/actions/actions";
 import Dialogs from "./Dialogs";
 
+class DialogsContainer extends Component {
+  render() {
+    let { dialogs, messages, newMessageText, createNewMessage, updateNewMessage } = this.props;
+    return (
+      <>
+        <Dialogs
+          dialogs={dialogs}
+          messages={messages}
+          newMessageText={newMessageText}
+          createNewMessage={createNewMessage}
+          updateNewMessage={updateNewMessage}
+        />
+      </>
+    );
+  }
+}
+
 const mapStateToProps = (state) => {
-    let { dialogs, messages, newMessageText } = state.dialogsPage;
-    return {
-        dialogs: dialogs,
-        messages: messages,
-        newMessageText: newMessageText,
-    };
+  let { dialogs, messages, newMessageText } = state.dialogsPage;
+  return {
+    dialogs: dialogs,
+    messages: messages,
+    newMessageText: newMessageText,
+  };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        createNewMessage: () => {
-            dispatch(createNewMessage());
-        },
-        updateNewMessage: (text) => {
-            dispatch(updateNewMessage(text));
-        },
-    };
+const mapDispatchToProps = {
+  createNewMessage,
+  updateNewMessage,
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-
-export default DialogsContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer);
