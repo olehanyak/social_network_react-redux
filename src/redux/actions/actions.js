@@ -1,4 +1,4 @@
-import { dataAPI } from "../../API/api";
+import { dataAPI } from "../../api/api";
 
 export const ADD_POST = 'ADD_POST';
 export const UPDATE_NEW_TEXT = 'UPDATE_NEW_TEXT';
@@ -149,6 +149,26 @@ export const followUsers = (user) => {
         dispatch(follow(user.id));
       }
       dispatch(toggleIsFollowingProgress(false, user.id));
+    });
+  }
+}
+
+export const authUserLogin = (user) => {
+  return (dispatch) => {
+    dataAPI.authUser().then((data) => {
+      if (data.resultCode === 0) {
+        let { id, email, login } = data.data;
+        dispatch(setAuthUserData(id, email, login));
+      }
+    });
+  }
+}
+
+export const getProfileUser = (userId) => {
+  return (dispatch) => {
+    dataAPI.profileUser(userId).then((data) => {
+      console.log(data);
+      dispatch(setUserProfile(data));
     });
   }
 }

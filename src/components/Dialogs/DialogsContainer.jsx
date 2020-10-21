@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { createNewMessage, updateNewMessage } from "../../redux/actions/actions";
 import Dialogs from "./Dialogs";
 
@@ -34,4 +36,6 @@ const mapDispatchToProps = {
   updateNewMessage,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer);
+const composition = compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(DialogsContainer);
+
+export default composition;

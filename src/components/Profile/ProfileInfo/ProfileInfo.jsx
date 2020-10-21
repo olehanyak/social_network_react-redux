@@ -3,10 +3,11 @@ import Preloader from "../../Preloader/Preloader";
 import styles from "./ProfileInfo.module.css";
 
 const ProfileInfo = (props) => {
-  if (!props.profile) {
-    return <Preloader />;
-  }
-  const { lookingForAJob, lookingForAJobDescription, fullName, contacts, photos } = props.profile;
+  if (!props.profile) return <Preloader />;
+
+  const { aboutMe, lookingForAJob, lookingForAJobDescription, fullName, contacts, photos } = props.profile;
+  const photoUser = photos ? photos.small : photos.large;
+  const templatePhoto = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
 
   return (
     <div>
@@ -19,9 +20,12 @@ const ProfileInfo = (props) => {
       </div>
 
       <div className={styles.avatarDescription}>
-        <img src={photos ? photos.small : photos.large} alt="photo" />
+        <img src={photoUser ? photoUser : templatePhoto} alt="photo" />
         <p>{fullName}</p>
-        <p>{contacts.vk}</p>
+        <p>about me: {aboutMe}</p>
+        <p>
+          contacts: {contacts.twitter} {contacts.github} {contacts.instagram} {contacts.youtube}
+        </p>
         <p>mail: {lookingForAJob}</p>
         <p>job: {lookingForAJobDescription}</p>
       </div>

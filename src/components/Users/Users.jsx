@@ -3,14 +3,16 @@ import { NavLink } from "react-router-dom";
 import styles from "./Users.module.css";
 import { unFollowUsers } from "../../redux/actions/actions";
 import { followUsers } from "../../redux/actions/actions";
+import ReactPaginate from "react-paginate";
 
 const Users = (props) => {
   let countPage = Math.ceil(props.totalPages / props.sizePage);
-
+  console.log(countPage);
   let pages = [];
   for (let i = 1; i <= countPage; i++) {
     pages.push(i);
   }
+  console.log(pages);
 
   return (
     <>
