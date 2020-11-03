@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Preloader.module.css";
-import preloader from "../../Assets/img/pinwheel.svg";
+import preloader from "../../assets/img/pinwheel.svg";
 
 const Preloader = () => {
   return (

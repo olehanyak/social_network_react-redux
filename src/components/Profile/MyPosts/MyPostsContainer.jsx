@@ -1,30 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateNewText, createNewPost } from "../../../redux/actions/actions";
+import { createNewPost } from "../../../redux/actions/actions";
 import MyPosts from "./MyPosts";
 
 class MyPostsContainer extends Component {
   render() {
-    let { posts, newPostText, createNewPost, updateNewText } = this.props;
+    let { posts, createNewPost } = this.props;
     return (
       <>
-        <MyPosts posts={posts} newPostText={newPostText} createNewPost={createNewPost} updateNewText={updateNewText} />
+        <MyPosts posts={posts} createNewPost={createNewPost} />
       </>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  let { posts, newPostText } = state.profilePage;
+  let { posts } = state.profilePage;
   return {
     posts: posts,
-    newPostText: newPostText,
   };
 };
 
-const mapDispatchToProps = {
-  createNewPost,
-  updateNewText,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createNewPost: (newPostText) => {
+      dispatch(createNewPost(newPostText));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyPostsContainer);

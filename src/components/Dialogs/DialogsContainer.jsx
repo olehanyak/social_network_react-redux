@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { createNewMessage, updateNewMessage } from "../../redux/actions/actions";
+import { createNewMessage } from "../../redux/actions/actions";
 import Dialogs from "./Dialogs";
 
 class DialogsContainer extends Component {
   render() {
-    let { dialogs, messages, newMessageText, createNewMessage, updateNewMessage } = this.props;
+    let { dialogs, messages, newMessageText, createNewMessage } = this.props;
     return (
       <>
         <Dialogs
@@ -15,7 +15,6 @@ class DialogsContainer extends Component {
           messages={messages}
           newMessageText={newMessageText}
           createNewMessage={createNewMessage}
-          updateNewMessage={updateNewMessage}
         />
       </>
     );
@@ -31,9 +30,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {
-  createNewMessage,
-  updateNewMessage,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createNewMessage: (addMessage) => {
+      dispatch(createNewMessage(addMessage));
+    },
+  };
 };
 
 const composition = compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(DialogsContainer);

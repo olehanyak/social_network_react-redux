@@ -1,12 +1,13 @@
-import { ADD_POST, SET_USER_PROFILE, UPDATE_NEW_TEXT } from "../actions/actions";
+import { ADD_POST, GET_USER_PROFILE_STATUS, SET_USER_PROFILE } from "../actions/actions";
 
 const initialState = {
   posts: [
     { id: 1, message: "hello", like: 12 },
     { id: 2, message: "I's my first post!", like: 5 },
   ],
-  newPostText: "",
+
   userProfile: null,
+  status: "",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -14,20 +15,20 @@ const profileReducer = (state = initialState, action) => {
     case ADD_POST: {
       return {
         ...state,
-        posts: [...state.posts, { id: 3, message: state.newPostText, like: 0, }],
-        newPostText: '',
+        posts: [...state.posts, { id: 3, message: action.newPostText, like: 0, }],
       };
     }
-    case UPDATE_NEW_TEXT: {
-      return {
-        ...state,
-        newPostText: action.newText,
-      };
-    }
+
     case SET_USER_PROFILE: {
       return {
         ...state,
         userProfile: action.userProfile,
+      };
+    }
+    case GET_USER_PROFILE_STATUS: {
+      return {
+        ...state,
+        status: action.status,
       };
     }
     default: return state;

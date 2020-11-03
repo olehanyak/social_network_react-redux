@@ -7,13 +7,12 @@ import ReactPaginate from "react-paginate";
 
 const Users = (props) => {
   let countPage = Math.ceil(props.totalPages / props.sizePage);
-  console.log(countPage);
+
   let pages = [];
   for (let i = 1; i <= countPage; i++) {
     pages.push(i);
   }
-  console.log(pages);
-
+  console.log(props.users);
   return (
     <>
       {pages.map((page, index) => {
@@ -32,10 +31,11 @@ const Users = (props) => {
         );
       })}
       {props.users.map((user) => (
+        
         <div key={user.id} className={styles.container}>
           <span className={styles.imgBlock}>
             <div>
-              <NavLink to={"/profile/" + user.id}>
+              <NavLink to={"profile/" + user.id}>
                 <img className={styles.photoUrl} src={user.photos.large} alt="Avatar" />
               </NavLink>
             </div>

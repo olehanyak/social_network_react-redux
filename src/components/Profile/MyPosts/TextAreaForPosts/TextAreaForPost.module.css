@@ -1,0 +1,17 @@
+.posts {
+  padding: 10px;
+}
+
+.formBlock {
+  padding-bottom: 10px;
+}
+
+.block {
+  color: #ff0000;
+}
+
+.textArea {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 1px 7px 2px #80808087;
+}

@@ -1,9 +1,12 @@
 import React from "react";
 import Preloader from "../../Preloader/Preloader";
 import styles from "./ProfileInfo.module.css";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
   if (!props.profile) return <Preloader />;
+
+ console.log(props);
 
   const { aboutMe, lookingForAJob, lookingForAJobDescription, fullName, contacts, photos } = props.profile;
   const photoUser = photos ? photos.small : photos.large;
@@ -28,6 +31,7 @@ const ProfileInfo = (props) => {
         </p>
         <p>mail: {lookingForAJob}</p>
         <p>job: {lookingForAJobDescription}</p>
+        <ProfileStatus status={props.status} />
       </div>
     </div>
   );

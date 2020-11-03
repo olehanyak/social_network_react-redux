@@ -1,11 +1,10 @@
-import { dataAPI } from "../../api/api";
+import { dataAPI, profileAPI } from "../../api/api";
 
 export const ADD_POST = 'ADD_POST';
-export const UPDATE_NEW_TEXT = 'UPDATE_NEW_TEXT';
+
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 export const ADD_MESSAGE = 'ADD_MESSAGE';
-export const UPDATE_NEW_MESSAGE = 'UPDATE_NEW_MESSAGE';
 
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
@@ -17,16 +16,13 @@ export const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 export const SET_USER_DATA = 'SET_USER_DATA';
 
-export const createNewPost = () => {
+export const GET_USER_PROFILE_STATUS = 'GET_USER_PROFILE_STATUS';
+export const UPDATE_USER_PROFILE_STATUS = 'UPDATE_USER_PROFILE_STATUS';
+
+export const createNewPost = (newPostText) => {
   return {
     type: ADD_POST,
-  };
-};
-
-export const updateNewText = (newText) => {
-  return {
-    type: UPDATE_NEW_TEXT,
-    newText,
+    newPostText,
   };
 };
 
@@ -37,16 +33,10 @@ export const setUserProfile = (userProfile) => {
   };
 };
 
-export const createNewMessage = () => {
+export const createNewMessage = (addMessage) => {
   return {
     type: ADD_MESSAGE,
-  };
-};
-
-export const updateNewMessage = (newMessage) => {
-  return {
-    type: UPDATE_NEW_MESSAGE,
-    newMessage,
+    addMessage,
   };
 };
 
@@ -107,6 +97,20 @@ export const toggleIsFollowingProgress = (isFollowing, userId) => {
   };
 };
 
+export const getUserProfileStatus = (status) => {
+  return {
+    type: GET_USER_PROFILE_STATUS,
+    status,
+  };
+};
+
+export const updateUserProfileStatus = (status) => {
+  return {
+    type: UPDATE_USER_PROFILE_STATUS,
+    status,
+  };
+};
+
 export const getUsers = (currentPage, sizePage) => {
   return (dispatch) => {
     dispatch(setToggleIsFetching(true));
@@ -153,7 +157,7 @@ export const followUsers = (user) => {
   }
 }
 
-export const authUserLogin = (user) => {
+export const authUserLogin = () => {
   return (dispatch) => {
     dataAPI.authUser().then((data) => {
       if (data.resultCode === 0) {
@@ -169,6 +173,26 @@ export const getProfileUser = (userId) => {
     dataAPI.profileUser(userId).then((data) => {
       console.log(data);
       dispatch(setUserProfile(data));
+    });
+  }
+}
+
+export const getProfileStatus = (userId) => {
+  return (dispatch) => {
+    profileAPI.getProfileStatus(userId).then((response) => {
+      console.log(response);
+      dispatch(getUserProfileStatus(response.data));
+    });
+  }
+}
+
+export const updateProfileStatus = (status) => {
+  return (dispatch) => {
+    profileAPI.updateProfileStatus(status).then((response) => {
+      if (response.data.resultCode === 0) {
+        console.log(response.data);
+        dispatch(updateUserProfileStatus(status));
+      }
     });
   }
 }

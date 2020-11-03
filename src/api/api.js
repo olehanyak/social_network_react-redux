@@ -34,3 +34,15 @@ export const dataAPI = {
       .then(response => response.data)
   },
 };
+
+export const profileAPI = {
+  getProfile(userId) {
+    return instance.get(`profile/${userId}`)
+  },
+  getProfileStatus(userId) {
+    return instance.get(`profile/status/${userId}`)
+  },
+  updateProfileStatus(status) {
+    return instance.put(`profile/status/`, { status: status })
+  },
+};
