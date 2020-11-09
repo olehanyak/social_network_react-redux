@@ -6,7 +6,7 @@ import ProfileStatus from "./ProfileStatus";
 const ProfileInfo = (props) => {
   if (!props.profile) return <Preloader />;
 
- console.log(props);
+  console.log(props);
 
   const { aboutMe, lookingForAJob, lookingForAJobDescription, fullName, contacts, photos } = props.profile;
   const photoUser = photos ? photos.small : photos.large;
@@ -26,9 +26,7 @@ const ProfileInfo = (props) => {
         <img src={photoUser ? photoUser : templatePhoto} alt="photo" />
         <p>{fullName}</p>
         <p>about me: {aboutMe}</p>
-        <p>
-          contacts: {contacts.twitter} {contacts.github} {contacts.instagram} {contacts.youtube}
-        </p>
+        <p>{`contacts: ${contacts.twitter} ${contacts.github} ${contacts.instagram} ${contacts.youtube}`}</p>
         <p>mail: {lookingForAJob}</p>
         <p>job: {lookingForAJobDescription}</p>
         <ProfileStatus status={props.status} />

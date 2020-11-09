@@ -9,13 +9,13 @@ const LoginForm = (props) => {
     <>
       <form className={styles.formBlock} onSubmit={props.handleSubmit}>
         <div className={styles.input}>
-          <Field component={InputControl} name={"login"} placeholder={"login"} validate={[required]} />
+          <Field component={InputControl} name={"email"} placeholder={"email"} validate={[required]} />
         </div>
         <div className={styles.input}>
           <Field component={InputControl} name={"password"} placeholder={"password"} validate={[required]} />
         </div>
         <div className={styles.input}>
-          <Field component={"input"} name={"rememberMe"} type={"checkbox"} />
+          <Field component={InputControl} name={"rememberMe"} type={"checkbox"} />
         </div>
         <div className={styles.btn}>
           <button className="btn btn-outline-primary">login</button>

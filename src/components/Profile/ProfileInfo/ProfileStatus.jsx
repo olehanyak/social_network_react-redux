@@ -26,10 +26,6 @@ class ProfileStatus extends React.Component {
     });
   };
 
-  componentDidUpdate() {
-    console.log('update')
-  }
-
   render() {
     return (
       <div>

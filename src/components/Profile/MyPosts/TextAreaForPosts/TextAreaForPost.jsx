@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../../../utils/validators";
-import { FormControl } from "../../../common/FormsControl/FormControl";
+import { TextareaControl } from "../../../common/FormsControl/FormControl";
 import styles from "./TextAreaForPost.module.css";
 
 const maxLength15 = maxLengthCreator(15);
@@ -13,7 +13,7 @@ const TextAreaForPost = (props) => {
         <div className={styles.formBlock}>
           <div>
             <Field
-              component={FormControl}
+              component={TextareaControl}
               name={"newPost"}
               className={styles.textArea}
               placeholder="Write a new post"

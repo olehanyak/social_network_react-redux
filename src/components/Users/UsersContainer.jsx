@@ -9,7 +9,7 @@ import {
   totalCountPage,
   getUsers,
   selectPages,
-} from "../../redux/actions/actions";
+} from "../../redux/reducers/usersReducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 

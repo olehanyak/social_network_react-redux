@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../../utils/validators";
-import { FormControl } from "../../common/FormsControl/FormControl";
+import { TextareaControl } from "../../common/FormsControl/FormControl";
 import styles from "./TextAreaForMessage.module.css";
 
 const maxLength20 = maxLengthCreator(20);
@@ -11,7 +11,7 @@ const TextAreaForMessage = (props) => {
     <form onSubmit={props.handleSubmit}>
       <div>
         <Field
-          component={FormControl}
+          component={TextareaControl}
           name={"addMessage"}
           placeholder="Write your message"
           className={styles.dialogText}

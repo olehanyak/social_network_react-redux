@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { createNewMessage } from "../../redux/actions/actions";
+import { createNewMessage } from "../../redux/reducers/dialogsReducer";
 import Dialogs from "./Dialogs";
 
 class DialogsContainer extends Component {

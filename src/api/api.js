@@ -25,19 +25,27 @@ export const dataAPI = {
     return instance.post(`follow/${user.id}`)
       .then(response => response.data)
   },
-  authUser() {
-    return instance.get(`auth/me`)
-      .then(response => response.data)
-  },
   profileUser(userId) {
     return instance.get(`profile/${userId}`)
       .then(response => response.data)
   },
 };
 
+export const authAPI = {
+  me() {
+    return instance.get(`auth/me`)
+  },
+  loginUser(email, password, rememberMe) {
+    return instance.post(`auth/login`, { email, password, rememberMe });
+  },
+  logoutUser() {
+    return instance.delete(`auth/login`);
+  },
+};
+
 export const profileAPI = {
   getProfile(userId) {
-    return instance.get(`profile/${userId}`)
+    return instance.get(`profile/${userId}`).then(response => response.data)
   },
   getProfileStatus(userId) {
     return instance.get(`profile/status/${userId}`)

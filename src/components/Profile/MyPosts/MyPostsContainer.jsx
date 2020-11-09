@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createNewPost } from "../../../redux/actions/actions";
+import { createNewPost } from "../../../redux/reducers/profileReducer";
 import MyPosts from "./MyPosts";
 
 class MyPostsContainer extends Component {

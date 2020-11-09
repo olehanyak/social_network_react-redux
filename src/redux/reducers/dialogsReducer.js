@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "../actions/actions";
+export const ADD_MESSAGE = 'ADD_MESSAGE';
 
 const initialState = {
   dialogs: [
@@ -30,3 +30,10 @@ const dialogsReducer = (state = initialState, action) => {
 };
 
 export default dialogsReducer;
+
+export const createNewMessage = (addMessage) => {
+  return {
+    type: ADD_MESSAGE,
+    addMessage,
+  };
+};

@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Users.module.css";
-import { unFollowUsers } from "../../redux/actions/actions";
-import { followUsers } from "../../redux/actions/actions";
+import { unFollowUsers } from "../../redux/reducers/usersReducer";
+import { followUsers } from "../../redux/reducers/usersReducer";
 import ReactPaginate from "react-paginate";
 
 const Users = (props) => {
