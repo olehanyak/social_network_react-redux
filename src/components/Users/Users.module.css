@@ -2,20 +2,12 @@
   display: flex;
 }
 
-.listOfPages {
-  display: inline-block;
-  margin: 20px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.selectedPage {
-  font-weight: 900;
-  color: #fa8072;
-}
-
-.imgBlock {
+.userBlock {
   margin: 20px 0px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .photoUrl {
@@ -39,7 +31,7 @@
   background-color: #d45b4d;
 }
 
-.userBlock {
+.userInfo {
   display: flex;
   justify-content: space-between;
   margin: 20px;

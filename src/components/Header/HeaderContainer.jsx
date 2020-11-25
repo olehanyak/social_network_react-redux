@@ -2,13 +2,9 @@ import React, { Component } from "react";
 import Header from "./Header";
 import { connect } from "react-redux";
 import styles from "./Header.module.css";
-import { authUserLogin, logout } from "../../redux/reducers/authReducer";
+import { logout } from "../../redux/reducers/authReducer";
 
 class HeaderContainer extends Component {
-  componentDidMount() {
-    this.props.authUserLogin();
-  }
-
   render() {
     return (
       <div className={styles.header}>
@@ -25,9 +21,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {
-  authUserLogin,
-  logout,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);
+export default connect(mapStateToProps, {logout})(HeaderContainer);

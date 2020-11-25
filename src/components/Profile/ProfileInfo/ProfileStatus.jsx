@@ -1,54 +1,43 @@
-import React from "react";
-import Preloader from "../../Preloader/Preloader";
+import React, { useState } from "react";
 import styles from "./ProfileStatus.module.css";
 
-class ProfileStatus extends React.Component {
-  state = {
-    editMode: false,
-    status: this.props.status,
+const ProfileStatus = (props) => {
+  const [editMode, setEditMode] = useState(false);
+  const [status, setStatus] = useState(props.status);
+
+  const activeEditMode = () => {
+    setEditMode(true);
   };
 
-  activeEditMode = () => {
-    this.setState({
-      editMode: true,
-    });
+  const deactivatedEditMode = () => {
+    setEditMode(false);
   };
 
-  deactivatedEditMode = () => {
-    this.setState({
-      editMode: false,
-    });
+  const onChangeStatus = (e) => {
+    setStatus(e.target.value);
   };
 
-  onChangeStatus = (e) => {
-    this.setState({
-      status: e.target.value,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        {!this.state.editMode && (
-          <div>
-            <span onDoubleClick={this.activeEditMode}>{this.props.status || "-----------"}</span>
-          </div>
-        )}
-        {this.state.editMode && (
-          <div>
-            <input
-              className={styles.input}
-              autoFocus={true}
-              onBlur={this.deactivatedEditMode}
-              onChange={this.onChangeStatus}
-              type="text"
-              value={this.state.status}
-            />
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {!editMode && (
+        <div>
+          <span onDoubleClick={activeEditMode}>{status || "-----------"}</span>
+        </div>
+      )}
+      {editMode && (
+        <div>
+          <input
+            className={styles.input}
+            autoFocus={true}
+            onBlur={deactivatedEditMode}
+            onChange={onChangeStatus}
+            type="text"
+            value={status}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default ProfileStatus;

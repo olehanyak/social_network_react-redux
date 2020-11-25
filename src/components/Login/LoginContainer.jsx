@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { login } from "../../redux/reducers/authReducer";
 import Login from "./Login";

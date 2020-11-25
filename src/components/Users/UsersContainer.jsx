@@ -12,6 +12,14 @@ import {
 } from "../../redux/reducers/usersReducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import {
+  userSelector,
+  totalPagesSelector,
+  currentPageSelector,
+  sizePageSelector,
+  isFetchingSelector,
+  followingProgressSelector,
+} from "../../redux/selectors/userSelector";
 
 class UsersContainer extends Component {
   componentDidMount() {
@@ -23,16 +31,7 @@ class UsersContainer extends Component {
   };
 
   render() {
-    let {
-      users,
-      totalPages,
-      sizePage,
-      currentPage,
-      follow,
-      unfollow,
-      isFetching,
-      followingProgress,
-    } = this.props;
+    let { users, totalPages, sizePage, currentPage, follow, unfollow, isFetching, followingProgress } = this.props;
 
     return (
       <>
@@ -54,12 +53,12 @@ class UsersContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    totalPages: state.usersPage.totalPages,
-    currentPage: state.usersPage.currentPage,
-    sizePage: state.usersPage.sizePage,
-    isFetching: state.usersPage.isFetching,
-    followingProgress: state.usersPage.followingProgress,
+    users: userSelector(state),
+    totalPages: totalPagesSelector(state),
+    currentPage: currentPageSelector(state),
+    sizePage: sizePageSelector(state),
+    isFetching: isFetchingSelector(state),
+    followingProgress: followingProgressSelector(state),
   };
 };
 

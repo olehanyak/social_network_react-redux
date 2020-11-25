@@ -2,10 +2,11 @@
   margin: 20px;
 }
 
-.input {
-  margin: 10px;
-}
-
-.btn {
+.formError {
+  color: #ff1e00;
+  background-color: #e8f0fe;
+  border: 1px solid #ff1e00;
+  border-radius: 5px;
+  padding: 10px;
   margin: 10px;
 }
