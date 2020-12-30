@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   follow,
-  setCurrentPage,
-  setToggleIsFetching,
-  setUsers,
   unfollow,
-  totalCountPage,
   getUsers,
   selectPages,
 } from "../../redux/reducers/usersReducer";
@@ -20,14 +16,36 @@ import {
   isFetchingSelector,
   followingProgressSelector,
 } from "../../redux/selectors/userSelector";
+import { UsersType } from "../../types/types";
+import { AppStateType } from "../../redux/redux_store";
 
-class UsersContainer extends Component {
+type MapStatePropsType = {
+  currentPage: number
+  sizePage: number
+  users: Array<UsersType>
+  totalPages: number
+  isFetching: boolean
+  followingProgress: Array<number>
+}
+
+type MapDispatchPropsType = {
+  getUsers: (currentPage: number, sizePage: number) => void
+  selectPages: (page: number, sizePage: number) => void
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType;
+
+class UsersContainer extends Component<PropsType> {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.sizePage);
+    const { getUsers, currentPage, sizePage } = this.props;
+    getUsers(currentPage, sizePage);
   }
 
-  onSelectedPage = (page) => {
-    this.props.selectPages(page, this.props.sizePage);
+  onSelectedPage = (page: number) => {
+    const { selectPages, sizePage } = this.props;
+    selectPages(page, sizePage);
   };
 
   render() {
@@ -51,7 +69,7 @@ class UsersContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
   return {
     users: userSelector(state),
     totalPages: totalPagesSelector(state),
@@ -59,16 +77,16 @@ const mapStateToProps = (state) => {
     sizePage: sizePageSelector(state),
     isFetching: isFetchingSelector(state),
     followingProgress: followingProgressSelector(state),
-  };
+  }
 };
 
 const mapDispatchToProps = {
   follow,
   unfollow,
-  setUsers,
-  setCurrentPage,
-  totalCountPage,
-  setToggleIsFetching,
+  // setUsers,
+  // setCurrentPage,
+  // totalCountPage,
+  // setToggleIsFetching,
   getUsers,
   selectPages,
 };

@@ -1,8 +1,26 @@
-.profile__image {
+
+.profileImage {
     width: 100%;
     height: 300px;
 }
 
-.avatarDescription {
+.templatePhotoUser {
+    margin: 10px;
+}
+
+.profileDescription {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.userName {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.contacts span {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
 }

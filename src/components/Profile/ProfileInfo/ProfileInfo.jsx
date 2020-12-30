@@ -13,23 +13,31 @@ const ProfileInfo = (props) => {
 
   return (
     <div>
-      <div>
-        <image
-          className={styles.profile__image}
+      {/* <div>
+        <img
+          className={styles.profileImage}
           src="https://bearlog.com.ua/wp-content/uploads/2014/09/Socialni-merezhi-roblyat-lyudejj-zakritimi-1080x360.jpg"
           alt="Photo keyboard"
         />
-      </div>
+      </div> */}
 
-      <div className={styles.avatarDescription}>
-        <image src={photoUser ? photoUser : templatePhoto} alt="photo" />
-        <p>{fullName}</p>
-        <p>about me: {aboutMe}</p>
-        <p>{`contacts: ${contacts.twitter} ${contacts.github} ${contacts.instagram} ${contacts.youtube}`}</p>
-        <p>mail: {lookingForAJob}</p>
-        <p>job: {lookingForAJobDescription}</p>
+      <img className={styles.templatePhotoUser} src={photoUser !== null ? photoUser : templatePhoto} alt="photo" />
+      <section className={styles.profileDescription}>
+        <h4 className={styles.userName}>{fullName}</h4>
+        <b>About me: {aboutMe}</b>
+        <b>Looking for a job: {lookingForAJob}</b>
+        <div className={styles.contacts}>
+          <b>Contacts:</b>      
+          <div>twitter - <a href={contacts.twitter}>{contacts.twitter}</a></div>
+          <div>github - <a href={contacts.github}>{contacts.github}</a></div>
+          <div>instagram - <a href={contacts.instagram}>{contacts.instagram}</a></div>
+          <div>youtube - <a href={contacts.youtube}>{contacts.youtube}</a></div>
+          <div>facebook - <a href={contacts.facebook}>{contacts.facebook}</a></div>
+          <div>vk - <a href={contacts.vk}>{contacts.vk}</a></div>      
+        </div>
+        <b>Job: {lookingForAJobDescription}</b>
         <ProfileStatus status={props.status} />
-      </div>
+      </section>
     </div>
   );
 };

@@ -6,15 +6,28 @@ import { getProfileUser, getProfileStatus, updateProfileStatus } from "../../red
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 class ProfileContainer extends Component {
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.match.params.userId;
-    console.log(this.props)
-   
+    console.log(this.props);
+
     if (!userId) {
       userId = this.props.authorizedUserId;
+      if (!userId) {
+        this.props.history.push("/login");
+      }
     }
     this.props.getProfileUser(userId);
     this.props.getProfileStatus(userId);
+  }
+
+  componentDidMount() {
+    this.refreshProfile();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
+      this.refreshProfile();
+    }
   }
 
   render() {

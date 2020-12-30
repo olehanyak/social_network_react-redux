@@ -17,13 +17,14 @@ export const dataAPI = {
     return instance.get(`users?page=${page}&limit=${sizePage}`)
       .then(response => response.data)
   },
-  unFollowUser(user) {
-    return instance.delete(`follow/${user.id}`)
+  unFollowUser(userId) {
+    return instance.delete(`unfollow/${userId}`)
       .then(response => response.data)
   },
-  followUser(user) {
-    return instance.post(`follow/${user.id}`)
+  followUser(userId) {
+    return instance.post(`follow/${userId}`)
       .then(response => response.data)
+      // .then(response => console.log(response.data))
   },
   profileUser(userId) {
     return instance.get(`profile/${userId}`)

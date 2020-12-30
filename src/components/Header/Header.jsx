@@ -5,13 +5,13 @@ import styles from "./Header.module.css";
 const Header = (props) => {
   console.log(props);
   return (
-    <header>
-      <i className="fab fa-angellist iconFingersVictory"></i>
+    <header className={styles.headerSection}>
+      <div className={styles.sotNet}>moonmen</div>
 
       <div className={styles.loginBlock}>
         {props.isAuth ? (
           <div>
-            {props.login} - <button onClick={props.logout}>Log out</button>
+            <span className={styles.userName}>{props.login}</span> <button className="btn btn-outline-primary" onClick={props.logout}>Log out</button>
           </div>
         ) : (
           <NavLink to={"/login"}>Login</NavLink>
