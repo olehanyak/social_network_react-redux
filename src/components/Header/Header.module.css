@@ -30,5 +30,18 @@
     letter-spacing: 2px;
     font-size: 30px;
 }
+.sotNet:hover {
+    color: #fbd708;
+}
 
-
+.moonLetter {
+    padding-left: 13px;
+    border: none;
+    border-radius: 50%;
+    color: #fbd708;
+    background-color: #fbd708;
+}
+.moonLetter:hover {
+    color: #ffffff;
+    background-color: #ffffff;
+}
