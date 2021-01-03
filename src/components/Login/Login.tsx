@@ -3,8 +3,19 @@ import { Redirect } from "react-router-dom";
 import styles from "./Login.module.css";
 import LoginReduxForm from "./LoginForm/LoginForm";
 
-const Login = ({ login, isAuth }) => {
-  const onSubmit = (formData) => {
+type LoginPropsType = {
+  login: (email: string, password: number, rememberMe: boolean) => void
+  isAuth: boolean
+}
+
+type FormDataType = {
+  email: string
+  password: number
+  rememberMe: boolean
+}
+
+const Login: React.FC<LoginPropsType> = ({ login, isAuth }) => {
+  const onSubmit = (formData: FormDataType) => {
     console.log(formData);
     const { email, password, rememberMe } = formData;
     login(email, password, rememberMe);

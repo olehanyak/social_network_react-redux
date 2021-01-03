@@ -1,5 +1,8 @@
 import { PostType, UserProfileType } from './../../types/types';
-import { dataAPI, profileAPI } from "../../api/api";
+import { profileAPI, ResultCodeEnum } from "../../api/api";
+import { ThunkAction } from 'redux-thunk';
+import { AppStateType } from '../redux_store';
+import { Dispatch } from 'redux';
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -18,7 +21,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState;
 
-const profileReducer = (state = initialState, action: any): InitialStateType => {
+const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
       return {
@@ -49,6 +52,9 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
 };
 
 export default profileReducer;
+
+type ActionsTypes = CreateNewPostActionType | SetUserProfileActionType | GetUserProfileStatusActionType
+ | UpdateUserProfileStatusActionType
 
 type CreateNewPostActionType = {
   type: typeof ADD_POST
@@ -98,28 +104,29 @@ export const updateUserProfileStatus = (status: string): UpdateUserProfileStatus
   };
 };
 
-export const getProfileUser = (userId: number) => {
-  return async (dispatch: any) => {
-    const data = await dataAPI.profileUser(userId);
-    console.log(data);
-    dispatch(setUserProfile(data));
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
+export const getProfileUser = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    const profileData = await profileAPI.getProfile(userId);
+    console.log(profileData);
+    dispatch(setUserProfile(profileData));
   }
 }
 
-export const getProfileStatus = (userId: number) => {
-  return async (dispatch: any) => {
+export const getProfileStatus = (userId: number): ThunkType => {
+  return async (dispatch) => {
     const response = await profileAPI.getProfileStatus(userId);
     console.log(response.data);
     dispatch(getUserProfileStatus(response.data));
-
   }
 }
 
-export const updateProfileStatus = (status: string) => {
-  return async (dispatch: any) => {
-    const response = await profileAPI.updateProfileStatus(status);
-    if (response.data.resultCode === 0) {
-      console.log(response.data);
+export const updateProfileStatus = (status: string): ThunkType => {
+  return async (dispatch) => {
+    const updateData = await profileAPI.updateProfileStatus(status);
+    if (updateData.resultCode === ResultCodeEnum.Success) {
+
       dispatch(updateUserProfileStatus(status));
     }
   }

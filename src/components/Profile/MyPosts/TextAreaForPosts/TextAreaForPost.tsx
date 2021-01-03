@@ -6,7 +6,11 @@ import styles from "./TextAreaForPost.module.css";
 
 const maxLength15 = maxLengthCreator(15);
 
-const TextAreaForPost = (props) => {
+type PropsType = {
+  handleSubmit: () => void
+}
+
+const TextAreaForPost: React.FC<PropsType> = (props) => {
   return (
     <>
       <form onSubmit={props.handleSubmit}>

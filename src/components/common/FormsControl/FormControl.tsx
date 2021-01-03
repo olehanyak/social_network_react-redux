@@ -1,8 +1,14 @@
 import React from "react";
-import { Field } from "redux-form";
+import { Field, WrappedFieldMetaProps, WrappedFieldProps } from "redux-form";
+import { FieldValidatorType } from "../../../utils/validators";
 import styles from "./FormControl.module.css";
 
-const FormWork = ({ input, meta, children, ...props }) => {
+type FormWorkParamsType = {
+  input: any
+  meta: WrappedFieldMetaProps
+}
+
+const FormWork: React.FC<FormWorkParamsType> = ({ input, meta, children }) => {
   const hasError = meta.touched && meta.error;
   return (
     <div className={styles.formControl + " " + (hasError ? styles.error : "")}>
@@ -13,7 +19,7 @@ const FormWork = ({ input, meta, children, ...props }) => {
   );
 };
 
-export const TextareaControl = (props) => {
+export const TextareaControl: React.FC<WrappedFieldProps> = (props) => {
   const { input, meta, children, ...restProps } = props;
   return (
     <FormWork {...props}>
@@ -22,7 +28,7 @@ export const TextareaControl = (props) => {
   );
 };
 
-export const InputControl = (props) => {
+export const InputControl = (props: any) => {
   const { input, meta, children, ...restProps } = props;
   return (
     <FormWork {...props}>
@@ -31,18 +37,19 @@ export const InputControl = (props) => {
   );
 };
 
-export const createField = (InputControl, name, placeholder, validate, props = {}, text = "") => {
-  
+export const createField = (InputControl: string | React.Component | React.FC, name: string, placeholder: string, validate: Array<FieldValidatorType>, props = {}, text = "") => {
+
   return (
     <div className={styles.inputField}>
-      <Field 
-          component={InputControl} 
-          name={name} 
-          placeholder={placeholder} 
-          validate={validate} 
-          {...props}
+      <Field
+        component={InputControl}
+        // component={component}
+        name={name}
+        placeholder={placeholder}
+        validate={validate}
+        {...props}
       />
-          {text}
+      {text}
     </div>
   );
 };

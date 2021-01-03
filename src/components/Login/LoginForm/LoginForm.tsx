@@ -1,10 +1,10 @@
 import React from "react";
-import { reduxForm } from "redux-form";
+import { reduxForm, InjectedFormProps } from "redux-form";
 import { required } from "../../../utils/validators";
 import { createField, InputControl } from "../../common/FormsControl/FormControl";
 import styles from "./LoginForm.module.css";
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm: React.FC<InjectedFormProps> = ({handleSubmit, error}) => {
   return (
     <>
       <form className={styles.formBlock} onSubmit={handleSubmit}>

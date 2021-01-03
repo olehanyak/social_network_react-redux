@@ -1,11 +1,33 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
+import { withRouter, RouteComponentProps } from "react-router";
 import Profile from "./Profile";
 import { getProfileUser, getProfileStatus, updateProfileStatus } from "../../redux/reducers/profileReducer";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
-class ProfileContainer extends Component {
+import { UserProfileType } from "../../types/types";
+import { AppStateType } from "../../redux/redux_store";
+
+type MapStateType = {
+  profile: UserProfileType
+  status: string
+  isAuth: boolean,
+  authorizedUserId: number,
+}
+
+type MapDispatchType = {
+  getProfileUser: (userId: number) => void
+  getProfileStatus: (userId: number) => void
+  updateProfileStatus: () => void
+}
+
+type OwnPropsType = {
+  updateStatus: () => void
+}
+
+type PropsType = MapStateType & MapDispatchType & OwnPropsType
+
+class ProfileContainer extends Component<PropsType & RouteComponentProps<any>> {
   refreshProfile() {
     let userId = this.props.match.params.userId;
     console.log(this.props);
@@ -24,7 +46,7 @@ class ProfileContainer extends Component {
     this.refreshProfile();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: any, prevState: any) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this.refreshProfile();
     }
@@ -44,7 +66,7 @@ class ProfileContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
   return {
     profile: state.profilePage.userProfile,
     status: state.profilePage.status,
