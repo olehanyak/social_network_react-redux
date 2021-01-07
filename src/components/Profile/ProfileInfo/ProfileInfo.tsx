@@ -9,6 +9,7 @@ export const templatePhoto = "https://i.pinimg.com/originals/51/f6/fb/51f6fb2566
 type PropsType = {
   profile: UserProfileType
   status: string
+  updateStatus: () => void
 }
 
 const ProfileInfo: React.FC<PropsType> = (props) => {

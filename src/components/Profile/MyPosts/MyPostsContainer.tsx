@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createNewPost } from "../../../redux/reducers/profileReducer";
+import { profileActions } from "../../../redux/reducers/profileReducer";
 import { AppStateType } from "../../../redux/redux_store";
 import { profileSelector } from "../../../redux/selectors/profileSelector";
 import { PostType } from "../../../types/types";
@@ -34,7 +34,7 @@ const mapStateToProps = (state: AppStateType) => {
 };
 
 const mapDispatchToProps = {
-  createNewPost,
+  createNewPost: profileActions.createNewPost,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyPostsContainer as any);

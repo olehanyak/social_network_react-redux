@@ -4,11 +4,10 @@ import { FieldValidatorType } from "../../../utils/validators";
 import styles from "./FormControl.module.css";
 
 type FormWorkParamsType = {
-  input: any
   meta: WrappedFieldMetaProps
 }
 
-const FormWork: React.FC<FormWorkParamsType> = ({ input, meta, children }) => {
+const FormWork: React.FC<FormWorkParamsType> = ({ meta, children }) => {
   const hasError = meta.touched && meta.error;
   return (
     <div className={styles.formControl + " " + (hasError ? styles.error : "")}>
@@ -28,7 +27,7 @@ export const TextareaControl: React.FC<WrappedFieldProps> = (props) => {
   );
 };
 
-export const InputControl = (props: any) => {
+export const InputControl: React.FC<WrappedFieldProps> = (props) => {
   const { input, meta, children, ...restProps } = props;
   return (
     <FormWork {...props}>
@@ -37,13 +36,17 @@ export const InputControl = (props: any) => {
   );
 };
 
-export const createField = (InputControl: string | React.Component | React.FC, name: string, placeholder: string, validate: Array<FieldValidatorType>, props = {}, text = "") => {
+export function createField<KeysTypes extends string>(InputControl: React.FC<WrappedFieldProps>,
+  name: KeysTypes,
+  placeholder: string | undefined,
+  validate: Array<FieldValidatorType>,
+  props = {},
+  text = "") {
 
   return (
     <div className={styles.inputField}>
       <Field
         component={InputControl}
-        // component={component}
         name={name}
         placeholder={placeholder}
         validate={validate}

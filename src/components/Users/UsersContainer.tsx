@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  follow,
-  unfollow,
+  // follow,
+  // unfollow,
   getUsers,
   selectPages,
 } from "../../redux/reducers/usersReducer";
@@ -81,8 +81,8 @@ const mapStateToProps = (state: AppStateType) => {
 };
 
 const mapDispatchToProps = {
-  follow,
-  unfollow,
+  // follow,
+  // unfollow,
   // setUsers,
   // setCurrentPage,
   // totalCountPage,

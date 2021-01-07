@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router";
+import { compose } from "redux";
 import Profile from "./Profile";
 import { getProfileUser, getProfileStatus, updateProfileStatus } from "../../redux/reducers/profileReducer";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { compose } from "redux";
 import { UserProfileType } from "../../types/types";
 import { AppStateType } from "../../redux/redux_store";
+import { userProfileSelector, userProfileStatusSelector } from "../../redux/selectors/profileSelector";
+import { authSelector, authUserIdSelector } from "../../redux/selectors/authSelector";
 
 type MapStateType = {
   profile: UserProfileType
@@ -26,7 +28,6 @@ type OwnPropsType = {
 }
 
 type PropsType = MapStateType & MapDispatchType & OwnPropsType
-
 class ProfileContainer extends Component<PropsType & RouteComponentProps<any>> {
   refreshProfile() {
     let userId = this.props.match.params.userId;
@@ -68,10 +69,10 @@ class ProfileContainer extends Component<PropsType & RouteComponentProps<any>> {
 
 const mapStateToProps = (state: AppStateType) => {
   return {
-    profile: state.profilePage.userProfile,
-    status: state.profilePage.status,
-    isAuth: state.auth.isAuth,
-    authorizedUserId: state.auth.userId,
+    profile: userProfileSelector(state),
+    status: userProfileStatusSelector(state),
+    isAuth: authSelector(state),
+    authorizedUserId: authUserIdSelector(state),
   };
 };
 

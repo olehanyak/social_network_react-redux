@@ -1,19 +1,15 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import { maxLengthCreator, required } from "../../../../utils/validators";
 import { TextareaControl } from "../../../common/FormsControl/FormControl";
 import styles from "./TextAreaForPost.module.css";
 
 const maxLength15 = maxLengthCreator(15);
 
-type PropsType = {
-  handleSubmit: () => void
-}
-
-const TextAreaForPost: React.FC<PropsType> = (props) => {
+const TextAreaForPost: React.FC<InjectedFormProps> = ({ handleSubmit }) => {
   return (
     <>
-      <form onSubmit={props.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className={styles.formBlock}>
           <div>
             <Field

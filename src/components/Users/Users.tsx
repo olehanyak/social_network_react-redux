@@ -14,7 +14,7 @@ type PropsType = {
   unfollow: (userId: number) => void
 }
 
-const Users: React.FC<PropsType> = ({ totalPages, sizePage, users, followingProgress, currentPage, onSelectedPage, follow, unfollow }) => {
+const Users: React.FC<PropsType> = ({ totalPages, sizePage, users, followingProgress, currentPage, onSelectedPage, follow, unfollow }) => { 
   return (
     <>
       <Pagination

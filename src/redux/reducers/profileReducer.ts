@@ -1,13 +1,11 @@
+import { GenericThunkType, InferActionsTypes } from './../redux_store';
 import { PostType, UserProfileType } from './../../types/types';
-import { profileAPI, ResultCodeEnum } from "../../api/api";
-import { ThunkAction } from 'redux-thunk';
-import { AppStateType } from '../redux_store';
-import { Dispatch } from 'redux';
+import { ResultCodeEnum } from "../../api/api";
+import { profileAPI } from "../../api/profile-api";
 
-const ADD_POST = 'ADD_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const GET_USER_PROFILE_STATUS = 'GET_USER_PROFILE_STATUS';
-const UPDATE_USER_PROFILE_STATUS = 'UPDATE_USER_PROFILE_STATUS';
+type InitialStateType = typeof initialState;
+type ActionsTypes = InferActionsTypes<typeof profileActions>
+type ThunkType = GenericThunkType<ActionsTypes>
 
 const initialState = {
   posts: [
@@ -17,31 +15,31 @@ const initialState = {
 
   userProfile: null as UserProfileType | null,
   status: "",
+  newPostText: "",
 };
-
-export type InitialStateType = typeof initialState;
 
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
-    case ADD_POST: {
+    case "SN/ADD_POST": {
       return {
         ...state,
         posts: [...state.posts, { id: 3, message: action.newPostText, like: 0, }],
+        newPostText: ""
       };
     }
-    case SET_USER_PROFILE: {
+    case "SN/SET_USER_PROFILE": {
       return {
         ...state,
         userProfile: action.userProfile,
       };
     }
-    case GET_USER_PROFILE_STATUS: {
+    case "SN/GET_USER_PROFILE_STATUS": {
       return {
         ...state,
         status: action.status,
       };
     }
-    case UPDATE_USER_PROFILE_STATUS: {
+    case "SN/UPDATE_USER_PROFILE_STATUS": {
       return {
         ...state,
         status: action.status,
@@ -51,74 +49,46 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
   }
 };
 
-export default profileReducer;
-
-type ActionsTypes = CreateNewPostActionType | SetUserProfileActionType | GetUserProfileStatusActionType
- | UpdateUserProfileStatusActionType
-
-type CreateNewPostActionType = {
-  type: typeof ADD_POST
-  newPostText: string
+export const profileActions = {
+  createNewPost: (newPostText: string) => {
+    return {
+      type: "SN/ADD_POST",
+      newPostText,
+    } as const
+  },
+  setUserProfile: (userProfile: UserProfileType) => {
+    return {
+      type: "SN/SET_USER_PROFILE",
+      userProfile,
+    } as const
+  },
+  getUserProfileStatus: (status: string) => {
+    return {
+      type: "SN/GET_USER_PROFILE_STATUS",
+      status,
+    } as const
+  },
+  updateUserProfileStatus: (status: string) => {
+    return {
+      type: "SN/UPDATE_USER_PROFILE_STATUS",
+      status,
+    } as const
+  },
 }
-
-export const createNewPost = (newPostText: string): CreateNewPostActionType => {
-  return {
-    type: ADD_POST,
-    newPostText,
-  };
-};
-
-type SetUserProfileActionType = {
-  type: typeof SET_USER_PROFILE
-  userProfile: UserProfileType
-}
-
-export const setUserProfile = (userProfile: UserProfileType): SetUserProfileActionType => {
-  return {
-    type: SET_USER_PROFILE,
-    userProfile,
-  };
-};
-
-type GetUserProfileStatusActionType = {
-  type: typeof GET_USER_PROFILE_STATUS
-  status: string
-}
-
-export const getUserProfileStatus = (status: string): GetUserProfileStatusActionType => {
-  return {
-    type: GET_USER_PROFILE_STATUS,
-    status,
-  };
-};
-
-type UpdateUserProfileStatusActionType = {
-  type: typeof UPDATE_USER_PROFILE_STATUS
-  status: string
-}
-
-export const updateUserProfileStatus = (status: string): UpdateUserProfileStatusActionType => {
-  return {
-    type: UPDATE_USER_PROFILE_STATUS,
-    status,
-  };
-};
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export const getProfileUser = (userId: number): ThunkType => {
   return async (dispatch) => {
     const profileData = await profileAPI.getProfile(userId);
     console.log(profileData);
-    dispatch(setUserProfile(profileData));
+    dispatch(profileActions.setUserProfile(profileData));
   }
 }
 
 export const getProfileStatus = (userId: number): ThunkType => {
   return async (dispatch) => {
     const response = await profileAPI.getProfileStatus(userId);
-    console.log(response.data);
-    dispatch(getUserProfileStatus(response.data));
+    console.log(response)
+    dispatch(profileActions.getUserProfileStatus(response.data));
   }
 }
 
@@ -127,7 +97,9 @@ export const updateProfileStatus = (status: string): ThunkType => {
     const updateData = await profileAPI.updateProfileStatus(status);
     if (updateData.resultCode === ResultCodeEnum.Success) {
 
-      dispatch(updateUserProfileStatus(status));
+      dispatch(profileActions.updateUserProfileStatus(status));
     }
   }
 }
+
+export default profileReducer;

@@ -4,21 +4,25 @@ import styles from "./Login.module.css";
 import LoginReduxForm from "./LoginForm/LoginForm";
 
 type LoginPropsType = {
-  login: (email: string, password: number, rememberMe: boolean) => void
+  login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
   isAuth: boolean
+  captchaUrl: string | null
 }
 
-type FormDataType = {
+export type FormDataType = {
   email: string
-  password: number
+  password: string
   rememberMe: boolean
+  captcha: string
 }
 
-const Login: React.FC<LoginPropsType> = ({ login, isAuth }) => {
+export type FormDataTypeKeys = keyof FormDataType
+
+const Login: React.FC<LoginPropsType> = ({ login, isAuth, captchaUrl }) => {
   const onSubmit = (formData: FormDataType) => {
     console.log(formData);
-    const { email, password, rememberMe } = formData;
-    login(email, password, rememberMe);
+    const { email, password, rememberMe, captcha } = formData;
+    login(email, password, rememberMe, captcha);
   };
 
   if (isAuth) {
@@ -28,9 +32,9 @@ const Login: React.FC<LoginPropsType> = ({ login, isAuth }) => {
   return (
     <div className={styles.formField}>
       <h1 className={styles.login}>Please log in</h1>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
     </div>
   );
 };
 
-export default Login;
+export default (Login);

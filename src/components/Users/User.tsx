@@ -25,7 +25,7 @@ const User: React.FC<PropsType> = ({ user, followingProgress, follow, unfollow }
               <img
                 className={styles.photoUrl}
                 // src={user.photos.small !== null ? user.photos.large : templatePhoto}
-                // src={chooseUserPhoto}
+                src={chooseUserPhoto}
                 alt="Avatar"
               />
             </NavLink>
@@ -37,7 +37,7 @@ const User: React.FC<PropsType> = ({ user, followingProgress, follow, unfollow }
                 className={styles.btnFollower}
                 onClick={() => {
                   unFollowUsers(user.id);
-                  unfollow(user.id)
+                  // unfollow(user.id)
                 }}
               >
                 Unfollow
@@ -48,7 +48,7 @@ const User: React.FC<PropsType> = ({ user, followingProgress, follow, unfollow }
                   className={styles.btnFollower}
                   onClick={() => {
                     followUsers(user.id);
-                    follow(user.id)
+                    // follow(user.id)
                   }}
                 >
                   Follow
