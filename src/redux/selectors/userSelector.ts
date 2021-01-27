@@ -23,3 +23,7 @@ export const isFetchingSelector = (state: AppStateType) => {
 export const followingProgressSelector = (state: AppStateType) => {
   return state.usersPage.followingProgress;
 };
+
+export const filterSelector = (state: AppStateType) => {
+  return state.usersPage.filter;
+};

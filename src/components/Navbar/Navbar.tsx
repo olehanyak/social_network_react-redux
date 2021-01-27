@@ -3,8 +3,15 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import styles from "./Navbar.module.css";
 import FriendsBlock from "./Friends/FriendsBlock";
+import { AppStateType } from "../../redux/redux_store";
+import { dialogsSelector } from "../../redux/selectors/dialogsSelector";
+import { DialogsType } from "../../redux/reducers/dialogsReducer";
 
-const Navbar = ({ dialogs }) => {
+type MapStatePropsType = {
+  dialogs: Array<DialogsType>
+}
+
+const Navbar: React.FC<MapStatePropsType> = ({ dialogs }) => {
   let friendsName = dialogs.map((name) => <FriendsBlock key={name.id} friend={name.name} />);
   return (
     <div className={styles.nav}>
@@ -48,11 +55,10 @@ const Navbar = ({ dialogs }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  let { dialogs } = state.dialogsPage;
+const mapStateToProps = (state: AppStateType) => {
   return {
-    dialogs: dialogs,
+    dialogs: dialogsSelector(state),
   };
 };
 
-export default connect(mapStateToProps, null)(Navbar);
+export default connect(mapStateToProps, {})(Navbar);

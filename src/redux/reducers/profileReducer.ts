@@ -45,6 +45,12 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
         status: action.status,
       };
     }
+    case "SN/SET_PROFILE_PHOTO": {
+      return {
+        ...state,
+        userProfile: {...state.userProfile, photos: action.photoFiles} as UserProfileType,
+      };
+    }
     default: return state;
   }
 };
@@ -74,12 +80,17 @@ export const profileActions = {
       status,
     } as const
   },
+  setProfilePhoto: (photoFiles: any) => {
+    return {
+      type: "SN/SET_PROFILE_PHOTO",
+      photoFiles,
+    } as const
+  },
 }
 
 export const getProfileUser = (userId: number): ThunkType => {
   return async (dispatch) => {
     const profileData = await profileAPI.getProfile(userId);
-    console.log(profileData);
     dispatch(profileActions.setUserProfile(profileData));
   }
 }
@@ -87,7 +98,6 @@ export const getProfileUser = (userId: number): ThunkType => {
 export const getProfileStatus = (userId: number): ThunkType => {
   return async (dispatch) => {
     const response = await profileAPI.getProfileStatus(userId);
-    console.log(response)
     dispatch(profileActions.getUserProfileStatus(response.data));
   }
 }
@@ -96,8 +106,16 @@ export const updateProfileStatus = (status: string): ThunkType => {
   return async (dispatch) => {
     const updateData = await profileAPI.updateProfileStatus(status);
     if (updateData.resultCode === ResultCodeEnum.Success) {
-
       dispatch(profileActions.updateUserProfileStatus(status));
+    }
+  }
+}
+
+export const changeProfilePhoto = (photoFile: any): ThunkType => {
+  return async (dispatch) => {
+    const profilePhoto = await profileAPI.updateProfilePhoto(photoFile);
+    if (profilePhoto.data.resultCode === ResultCodeEnum.Success) {
+      dispatch(profileActions.setProfilePhoto(profilePhoto.data.photos));
     }
   }
 }

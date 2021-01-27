@@ -12,7 +12,9 @@ body {
     display: grid;
     width: 1200px;
     margin: 0 auto;
-    box-shadow: -1px 8px 20px -6px rgba(0,0,0,0.53);
+    background: #E0E0E0;
+    box-shadow:  -20px -20px 60px #bebebe,
+    20px 20px 60px #ffffff;
 
     grid-template-areas:
         "header header"
@@ -25,7 +27,7 @@ body {
 
 .app-wrapper-content {
     grid-area: content;
-    background-color: #ffffff;
+    background-color:#E0E0E0
 }
 
 .iconFingersVictory {

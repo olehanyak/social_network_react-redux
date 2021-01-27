@@ -1,22 +1,53 @@
-import React from "react";
-import { UsersType } from "../../types/types";
+import React, { useEffect } from "react";
 import Pagination from "../common/Pagination/Pagination";
 import User from "./User";
+import SearchUsersForm from "./SearchUsersForm";
+import { actions, FilterType, requestUsers } from "../../redux/reducers/usersReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { userSelector, totalPagesSelector, sizePageSelector, followingProgressSelector, currentPageSelector, filterSelector } from "../../redux/selectors/userSelector";
+import { useHistory, useLocation } from "react-router-dom";
 
-type PropsType = {
-  totalPages: number
-  sizePage: number
-  users: Array<UsersType>
-  followingProgress: Array<number>
-  currentPage: number
-  onSelectedPage: (page: number) => void
-  follow: (userId: number) => void
-  unfollow: (userId: number) => void
-}
+type PropsType = {}
 
-const Users: React.FC<PropsType> = ({ totalPages, sizePage, users, followingProgress, currentPage, onSelectedPage, follow, unfollow }) => { 
+export const Users: React.FC<PropsType> = React.memo((props) => {
+
+  const users = useSelector(userSelector);
+  const totalPages = useSelector(totalPagesSelector);
+  const sizePage = useSelector(sizePageSelector);
+  const followingProgress = useSelector(followingProgressSelector);
+  const currentPage = useSelector(currentPageSelector);
+  const filter = useSelector(filterSelector);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+  console.log(history);
+  console.log(location);
+  
+
+  useEffect(() => {
+    dispatch(requestUsers(currentPage, sizePage, filter));
+  }, [])
+
+  const onSelectedPage = (page: number) => {
+    dispatch(requestUsers(page, sizePage, filter));
+  };
+
+  const onFilterChange = (filter: FilterType) => {
+    dispatch(requestUsers(1, sizePage, filter));
+  };
+
+  const follow = (userId: number): void => {
+    dispatch(actions.follow(userId));
+  };
+
+  const unFollow = (userId: number): void => {
+    dispatch(actions.unFollow(userId));
+  };
+
   return (
     <>
+      <SearchUsersForm onFilterChange={onFilterChange} />
       <Pagination
         totalPages={totalPages}
         sizePage={sizePage}
@@ -25,11 +56,9 @@ const Users: React.FC<PropsType> = ({ totalPages, sizePage, users, followingProg
       />
       <div>
         {users.map((user) => (
-          <User user={user} followingProgress={followingProgress} follow={follow} unfollow={unfollow} key={user.id} />
+          <User user={user} followingProgress={followingProgress} follow={follow} unFollow={unFollow} key={user.id} />
         ))}
       </div>
     </>
   );
-};
-
-export default Users;
+});

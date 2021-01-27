@@ -1,9 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
+import { HeaderContainerPropsType } from "./HeaderContainer";
 
-const Header = (props) => {
-  console.log(props);
+type PropsType = HeaderContainerPropsType
+
+const Header: React.FC<PropsType> = (props) => {
+
   return (
     <header className={styles.headerSection}>
       <div className={styles.sotNet}>
@@ -19,8 +22,8 @@ const Header = (props) => {
             </button>
           </div>
         ) : (
-          <NavLink to={"/login"}>Login</NavLink>
-        )}
+            <NavLink to={"/login"}>Login</NavLink>
+          )}
       </div>
     </header>
   );

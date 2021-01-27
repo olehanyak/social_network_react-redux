@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "../Friends/FriendsBlock.module.css";
 
-const FriendsBlock = (props) => {
+type PropsType = {
+  friend: string
+}
+
+const FriendsBlock: React.FC<PropsType> = (props) => {
   return (
     <span className={styles.friendBox}>
       <img

@@ -6,7 +6,6 @@ import LoginReduxForm from "./LoginForm/LoginForm";
 type LoginPropsType = {
   login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
   isAuth: boolean
-  captchaUrl: string | null
 }
 
 export type FormDataType = {
@@ -18,9 +17,8 @@ export type FormDataType = {
 
 export type FormDataTypeKeys = keyof FormDataType
 
-const Login: React.FC<LoginPropsType> = ({ login, isAuth, captchaUrl }) => {
+export const Login: React.FC<LoginPropsType> = ({ login, isAuth }) => {
   const onSubmit = (formData: FormDataType) => {
-    console.log(formData);
     const { email, password, rememberMe, captcha } = formData;
     login(email, password, rememberMe, captcha);
   };
@@ -32,9 +30,7 @@ const Login: React.FC<LoginPropsType> = ({ login, isAuth, captchaUrl }) => {
   return (
     <div className={styles.formField}>
       <h1 className={styles.login}>Please log in</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+      <LoginReduxForm onSubmit={onSubmit} />
     </div>
   );
 };
-
-export default (Login);

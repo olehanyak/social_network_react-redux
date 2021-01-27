@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { UserProfileType } from "../../../types/types";
 import Preloader from "../../Preloader/Preloader";
 import styles from "./ProfileInfo.module.css";
@@ -7,9 +7,11 @@ import ProfileStatus from "./ProfileStatus";
 export const templatePhoto = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
 
 type PropsType = {
+  isOwner: boolean
   profile: UserProfileType
   status: string
   updateStatus: () => void
+  changeProfilePhoto(photoFile: any): void
 }
 
 const ProfileInfo: React.FC<PropsType> = (props) => {
@@ -18,6 +20,13 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
   const { aboutMe, lookingForAJob, lookingForAJobDescription, fullName, contacts, photos } = props.profile;
   const Large = photos.large
   const photoUser = photos ? photos.small : Large;
+
+  const onChangePhoto = (e: React.ChangeEvent<HTMLInputElement>): any => {
+    if (e.target.files === null) {
+      throw new Error("Error finding e.target.files");
+    }
+    props.changeProfilePhoto(e.target.files[0])
+  }
 
   return (
     <div>
@@ -30,7 +39,7 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
       </div> */}
 
       <img className={styles.templatePhotoUser} src={photoUser !== null ? photoUser : templatePhoto} alt="photo" />
-
+      {props.isOwner && <div className={styles.choosePhotoBtn}><input className={styles.input} onChange={onChangePhoto} type={"file"} /></div>}
       <section className={styles.profileDescription}>
         <h4 className={styles.userName}>{fullName}</h4>
         <b>About me: {aboutMe}</b>

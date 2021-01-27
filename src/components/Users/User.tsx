@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Users.module.css";
-import { unFollowUsers, followUsers } from "../../redux/reducers/usersReducer";
+// import { unFollowUsers, followUsers } from "../../redux/reducers/usersReducer";
 import { templatePhoto } from "../Profile/ProfileInfo/ProfileInfo";
 import { UsersType } from "../../types/types";
 
@@ -9,10 +9,10 @@ type PropsType = {
   user: UsersType
   followingProgress: Array<number>
   follow: (userId: number) => void
-  unfollow: (userId: number) => void
+  unFollow: (userId: number) => void
 }
 
-const User: React.FC<PropsType> = ({ user, followingProgress, follow, unfollow }) => {
+const User: React.FC<PropsType> = ({ user, followingProgress, follow, unFollow }) => {
 
   const chooseUserPhoto = user.photos.small !== null ? user.photos.large : templatePhoto
 
@@ -24,7 +24,7 @@ const User: React.FC<PropsType> = ({ user, followingProgress, follow, unfollow }
             <NavLink to={"profile/" + user.id}>
               <img
                 className={styles.photoUrl}
-                // src={user.photos.small !== null ? user.photos.large : templatePhoto}
+                // src={user.photos !== undefined ? user.photos.small : templatePhoto}
                 src={chooseUserPhoto}
                 alt="Avatar"
               />
@@ -36,8 +36,8 @@ const User: React.FC<PropsType> = ({ user, followingProgress, follow, unfollow }
                 disabled={followingProgress.some((id) => id === user.id)}
                 className={styles.btnFollower}
                 onClick={() => {
-                  unFollowUsers(user.id);
-                  // unfollow(user.id)
+                  // unFollowUsers(user.id);
+                  unFollow(user.id)
                 }}
               >
                 Unfollow
@@ -47,8 +47,8 @@ const User: React.FC<PropsType> = ({ user, followingProgress, follow, unfollow }
                   disabled={followingProgress.some((id) => id === user.id)}
                   className={styles.btnFollower}
                   onClick={() => {
-                    followUsers(user.id);
-                    // follow(user.id)
+                    // followUsers(user.id);
+                    follow(user.id)
                   }}
                 >
                   Follow

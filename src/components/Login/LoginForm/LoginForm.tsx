@@ -1,16 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { reduxForm, InjectedFormProps } from "redux-form";
+import { captchaUrlSelector } from "../../../redux/selectors/authSelector";
 import { required } from "../../../utils/validators";
 import { createField, InputControl } from "../../common/FormsControl/FormControl";
 import { FormDataTypeKeys, FormDataType } from "../Login";
 import styles from "./LoginForm.module.css";
 
-type PropsType = {
-  captchaUrl: string | null
-}
+type PropsType = {}
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType, PropsType> & PropsType> = ({ handleSubmit, error, captchaUrl }) => {
-
+const LoginForm: React.FC<InjectedFormProps<FormDataType, PropsType> & PropsType> = ({ handleSubmit, error }) => {
+  const captchaUrl = useSelector(captchaUrlSelector);
   return (
     <>
       <form className={styles.formBlock} onSubmit={handleSubmit}>

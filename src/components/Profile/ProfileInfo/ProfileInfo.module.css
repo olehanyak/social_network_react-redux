@@ -4,6 +4,11 @@
     height: 300px;
 }
 
+.choosePhotoBtn {
+    border: none;
+    margin-left: 10px;
+}
+
 .templatePhotoUser {
     margin: 10px;
 }
